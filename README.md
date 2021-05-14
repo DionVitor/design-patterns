@@ -16,4 +16,5 @@ de projeto em Python e indicarei sites e livros para dominar esse assunto tão i
     * Python Fluente, Luciano Ramalho
     * Design Patterns, GOF
 
-### Bons estudos!
+---
+### Bons estudos e jamais desista dos seus sonhos!
