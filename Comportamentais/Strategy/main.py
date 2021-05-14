@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from collections import namedtuple
 
 Customer = namedtuple('Customer', 'name fidelity')
+a = namedtuple('int', 'name')
 
 
 class LineItem:
@@ -24,7 +25,7 @@ class LineItem:
         return self.__price
 
     def total(self):
-        return self.__price * self.quantity
+        return self.price * self.quantity
 
 
 class Order:
@@ -61,7 +62,7 @@ class Order:
         return f'<Order by {self.customer.name}. Total: {self.total():.2f}, due: {self.due():.2f}>'
 
 
-class Promotion(ABC):  # Strategy: uma classe-base a abstrata
+class Promotion(ABC):  # Strategy: uma classe-base abstrata
 
     @abstractmethod
     def discount(self, order):
@@ -75,7 +76,7 @@ class FidelityPromo(Promotion):  # Primeira estratégia concreta
         return order.total() * .05 if order.customer.fidelity >= 1000 else 0
 
 
-class BulkItemPromo(Promotion):
+class BulkItemPromo(Promotion):  # Segunda estratégia concreta
     """10% de desconto para cada LineItem com 20 ou mais unidades"""
 
     def discount(self, order):
@@ -86,7 +87,7 @@ class BulkItemPromo(Promotion):
         return discount
 
 
-class LargeOrderPromo(Promotion):
+class LargeOrderPromo(Promotion):  # Terceira estratégia concreta
     """"7% de desconto para pedidos com 10 ou mais itens diferentes"""
 
     def discount(self, order):
@@ -101,7 +102,7 @@ class LargeOrderPromo(Promotion):
 dion = Customer('Dion Vitor', 0)
 fernanda = Customer('Fernanda', 1100)
 
-cart = [LineItem('banana', 4, 0.5), LineItem('apple', 10, 1.5), LineItem('watermellon', 5, 5.0)]
+cart = [LineItem('banana', 4, 0.5), LineItem('apple', 10, 1.5), LineItem('watermelon', 5, 5.0)]
 
 print(Order(dion, cart, FidelityPromo()))
 print(Order(fernanda, cart, FidelityPromo()))
